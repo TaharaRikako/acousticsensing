@@ -1,0 +1,132 @@
+#N canvas 0 353 639 426 12;
+#X text 199 117 comment;
+#X text 69 -49 Signal Generation;
+#N canvas 105 191 787 798 signal-generation 0;
+#X obj 33 268 osc~;
+#X floatatom 90 267 5 0 0 0 - - -;
+#X obj 34 312 *~ 0.9;
+#X obj 35 44 loadbang;
+#N canvas 791 310 442 511 triangle-wave 0;
+#X obj 37 36 inlet~;
+#X obj 111 401 outlet~;
+#X msg 192 114 0;
+#X obj 60 158 phasor~;
+#X obj 161 156 phasor~;
+#X obj 61 198 *~ 2;
+#X obj 60 225 -~ 1;
+#X obj 59 253 clip~ 0 1;
+#X obj 161 201 *~ 2;
+#X obj 160 228 -~ 1;
+#X obj 159 256 clip~ 0 1;
+#X obj 107 307 +~;
+#X text 193 97 phase synchronization;
+#X text 156 64 any fundamental;
+#X obj 118 115 *~ -1;
+#X connect 0 0 3 0;
+#X connect 0 0 14 0;
+#X connect 2 0 4 1;
+#X connect 2 0 3 1;
+#X connect 3 0 5 0;
+#X connect 4 0 8 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 11 0;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 10 0 11 1;
+#X connect 11 0 1 0;
+#X connect 14 0 4 0;
+#X restore 33 138 pd triangle-wave;
+#X msg 34 98 50;
+#X msg 159 264 0.9;
+#X msg 206 270 0;
+#X obj 35 378 dac~ 2;
+#X obj 33 207 +~ 22000;
+#X obj 33 178 *~ 2000;
+#X floatatom 91 97 5 0 0 0 - - -;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array sig-sweep 100 float 3;
+#A 0 -0.682376 0.773371 -0.840967 0.883434 -0.899793 0.889866 -0.854234
+0.794205 -0.71176 0.609515 -0.490554 0.358384 -0.216814 0.0698553 0.0784497
+-0.224044 0.36309 -0.491929 0.6073 -0.706325 0.786643 -0.846388 0.884288
+-0.899636 0.892322 -0.862801 0.812082 -0.741665 0.653497 -0.549928
+0.433659 -0.307561 0.174779 -0.0384574 -0.0981645 0.231974 -0.359927
+0.479242 -0.587329 0.681949 -0.761172 0.823491 -0.867763 0.893287 -0.899748
+0.887268 -0.856366 0.807934 -0.743177 0.663645 -0.571143 0.467681 -0.355463
+0.236817 -0.114116 -0.0101918 0.133746 -0.254189 0.36934 -0.477111
+0.575651 -0.663273 0.738576 -0.800374 0.847787 -0.880169 0.897184 -0.89878
+0.885145 -0.856724 0.814235 -0.758557 0.690826 -0.612309 0.52442 -0.428697
+0.326782 -0.220326 0.111063 -0.000669901 -0.10914 0.21677 -0.320634
+0.419308 -0.511424 0.595797 -0.671317 0.73712 -0.792417 0.836646 -0.869373
+0.890375 -0.899529 0.896952 -0.882868 0.857635 -0.821764 0.775903 -0.720778
+0.657236;
+#X coords 0 1 99 -1 200 140 1 0 0;
+#X restore 147 426 graph;
+#X obj 144 314 r display;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array freq-sweep 1000 float 2;
+#X coords 0 24000 1000 0 200 140 1 0 0;
+#X restore 366 428 graph;
+#X floatatom 113 180 5 0 0 0 - - -;
+#X floatatom 114 209 5 0 0 0 - - -;
+#X obj 364 379 tabwrite~ freq-sweep;
+#X obj 145 381 tabwrite~ sig-sweep;
+#X text 578 553 0 Hz;
+#X text 572 415 24 KHz;
+#X msg 201 118 0;
+#X msg 246 118 600;
+#X msg 292 117 1200;
+#X msg 116 56 0;
+#X msg 151 55 1;
+#X msg 189 54 2;
+#X msg 226 54 3;
+#X msg 265 53 50;
+#X text 41 236 between 22KHz-24KHz;
+#X connect 0 0 2 0;
+#X connect 1 0 2 1;
+#X connect 2 0 8 0;
+#X connect 2 0 18 0;
+#X connect 3 0 5 0;
+#X connect 4 0 10 0;
+#X connect 5 0 4 0;
+#X connect 6 0 1 0;
+#X connect 7 0 1 0;
+#X connect 9 0 0 0;
+#X connect 9 0 17 0;
+#X connect 10 0 9 0;
+#X connect 11 0 4 0;
+#X connect 13 0 17 0;
+#X connect 13 0 18 0;
+#X connect 15 0 10 1;
+#X connect 16 0 9 1;
+#X connect 21 0 15 0;
+#X connect 22 0 15 0;
+#X connect 23 0 15 0;
+#X connect 24 0 11 0;
+#X connect 25 0 11 0;
+#X connect 26 0 11 0;
+#X connect 27 0 11 0;
+#X connect 28 0 11 0;
+#X restore 264 -18 pd signal-generation;
+#X floatatom 194 209 5 0 0 0 - - -;
+#X obj 104 297 s display;
+#X msg 15 256 \; pd dsp \$1;
+#X obj 105 250 metro 500;
+#X text 250 96 1 turn ON everything;
+#X obj 74 -29 dumpOSC 8004;
+#X obj 67 204 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 74 3 OSCroute /p5;
+#X obj 64 81 unpack f;
+#X floatatom 69 151 5 0 0 0 - - -;
+#X msg 119 100 0;
+#X obj 69 40 OSCroute /p52;
+#X connect 3 0 6 1;
+#X connect 6 0 4 0;
+#X connect 9 0 6 0;
+#X connect 9 0 5 0;
+#X connect 10 0 14 0;
+#X connect 11 0 12 0;
+#X connect 12 0 9 0;
+#X connect 13 0 12 0;
+#X connect 14 0 11 0;
